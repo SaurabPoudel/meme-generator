@@ -8,10 +8,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CircleUser, Menu, Package2, Search } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
 export function Header() {
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -60,7 +62,7 @@ export function Header() {
           action={async (formData) => {
             "use server";
             const search = formData.get("search");
-            redirect(`/search/q?=${search}`);
+            redirect(`/search?q=${search}`);
           }}
           className="ml-auto flex-1 sm:flex-initial"
         >
@@ -74,6 +76,7 @@ export function Header() {
             />
           </div>
         </form>
+        <ModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
