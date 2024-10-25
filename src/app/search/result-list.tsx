@@ -12,16 +12,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ResultList({ files }: { files: FileObject[] }) {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {files.map((file) => {
         if (!file.filePath) return null;
         return (
           <Card key={file.fileId}>
             <CardHeader>
-              <CardTitle>Card Title</CardTitle>
+              <CardTitle>
+                {file.customMetadata?.displayName ?? file.name}
+              </CardTitle>
               <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
@@ -34,7 +38,9 @@ export default function ResultList({ files }: { files: FileObject[] }) {
               />
             </CardContent>
             <CardFooter>
-              <p>Card Footer</p>
+              <Button asChild>
+                <Link href={`/customize/${file.fileId}`}>Customize</Link>
+              </Button>
             </CardFooter>
           </Card>
         );

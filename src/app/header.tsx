@@ -7,12 +7,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { CircleUser, Menu, Package2, Search } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import SearchInput from "./search-input";
+import { Suspense } from "react";
 
 export function Header() {
   return (
@@ -68,12 +69,9 @@ export function Header() {
         >
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              name="search"
-              type="search"
-              placeholder="Search memes..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <SearchInput />
+            </Suspense>
           </div>
         </form>
         <ModeToggle />

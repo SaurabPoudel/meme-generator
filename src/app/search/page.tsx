@@ -1,6 +1,7 @@
 import ImageKit from "imagekit";
 import { unstable_noStore } from "next/cache";
 import ResultList from "./result-list";
+import { Button } from "@/components/ui/button";
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
@@ -11,16 +12,19 @@ const imagekit = new ImageKit({
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { q: string };
+  searchParams: Promise<{ q: string }>;
 }) {
-  const params = await searchParams;
   unstable_noStore();
+  const params = await searchParams;
   const files = await imagekit.listFiles({
     searchQuery: `name:${params.q}`,
   });
   return (
-    <div className="container mx-auto space-y-8 py-8">
-      <h1 className="text-4xl text-bold"> Search Results</h1>
+    <div className="container mx-auto space-y-8 py-8 px-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-4xl text-bold"> Search Results</h1>
+        <Button> Upload Base Meme</Button>
+      </div>
       <ResultList files={files} />
     </div>
   );
