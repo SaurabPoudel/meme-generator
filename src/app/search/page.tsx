@@ -2,6 +2,7 @@ import ImageKit from "imagekit";
 import { unstable_noStore } from "next/cache";
 import ResultList from "./result-list";
 import { Button } from "@/components/ui/button";
+import { UploadMemeButton } from "./upload-meme-button";
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
@@ -23,7 +24,8 @@ export default async function SearchPage({
     <div className="container mx-auto space-y-8 py-8 px-4">
       <div className="flex items-center justify-between">
         <h1 className="text-4xl text-bold"> Search Results</h1>
-        <Button> Upload Base Meme</Button>
+
+        <UploadMemeButton />
       </div>
       <ResultList files={files} />
     </div>
