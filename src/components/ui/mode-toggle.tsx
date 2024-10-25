@@ -13,7 +13,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme);
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(newTheme);
+  };
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <Button variant="outline" size="icon" />;
+  }
 
   return (
     <DropdownMenu>
@@ -25,13 +40,22 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={() => handleThemeChange("light")}
+          className={theme === "light" ? "bg-accent" : ""}
+        >
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          onClick={() => handleThemeChange("dark")}
+          className={theme === "dark" ? "bg-accent" : ""}
+        >
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={() => handleThemeChange("system")}
+          className={theme === "system" ? "bg-accent" : ""}
+        >
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
