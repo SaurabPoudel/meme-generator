@@ -19,7 +19,6 @@ export default function ResultList({ files }: { files: FileObject[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {files.map((file) => {
-        if (!file.filePath) return null;
         return (
           <Card key={file.fileId}>
             <CardHeader>
